@@ -53,6 +53,7 @@ h1 {
   display: block;
   margin-top: 3%;
   margin-left: 45%;
+  font-size: 1em;
 }
 
 button {
@@ -104,6 +105,8 @@ input {
 .delete-all {
   margin-top: 2%;
   display: inline;
+  font-size: 1em;
+  margin-left: 1%;
 }
 
 
