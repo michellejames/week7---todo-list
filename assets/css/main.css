@@ -1,0 +1,111 @@
+/* 
+==============================================
+CONTENT:	Project Name Here
+AUTHOR:		Your Name Here
+==============================================
+
+TABLE OF CONTENTS:
+
+1. Main Layout
+2. Content
+
+==============================================
+*/
+/* 1. Main Layout ================================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #ccc;
+  background-image: url(../img/nature.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.content {
+  background: white;
+  padding: 30px;
+  font-family: sans-serif;
+  width: 90%;
+  max-width: 600px;
+  margin: 30px auto;
+  border-radius: 10px;
+  border: 2px dotted #FD88B2;
+
+}
+  
+
+/* 2. Content ================================= */
+
+h1 {
+  font-weight: 700;
+  font-size: 2em;
+  margin: 2%;
+  background: #FD88B2;
+  padding: 3%;
+  font-family: 'Pacifico', cursive;
+  text-align: center;
+
+}
+
+.submit {
+  display: block;
+  margin-top: 3%;
+  margin-left: 45%;
+}
+
+button {
+  font-family: 'Pacifico', cursive;
+  background-color: #FD88B2;
+  border: 1px dotted white;
+
+}
+
+form {
+  text-align: center;
+}
+
+form input {
+    margin-top: 2%;
+
+    padding-right: 2%;
+
+}
+
+ol {
+  font-family: 'Pacifico', cursive;
+}
+
+
+li {
+  text-align: left;
+  padding: 2%;
+  margin-left: 7%;
+  border-bottom: 1px solid #FD88B2;
+}
+
+input {
+  cursor: pointer;
+
+}
+
+.checkbox {
+  display: inline;
+  font-family: 'Pacifico', cursive;
+  padding-left: 4%;
+
+}
+
+.single-delete {
+  float: right;
+}
+
+.delete-all {
+  margin-top: 2%;
+  display: inline;
+}
+
+
+
+
