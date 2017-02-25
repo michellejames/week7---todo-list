@@ -20,7 +20,7 @@ body {
   background: #ccc;
   background-image: url(../img/nature.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto;
 }
 
 .content {
