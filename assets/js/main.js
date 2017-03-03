@@ -75,9 +75,12 @@ var createItems = function ( e ) {
 
 		if ( checkBox.checked ) {
 		paragraph.style.textDecoration = "line-through";
+		checkBox.parentNode.classList.add ( "done" );
+
 
 		} else if ( !checkBox.checked )
 		paragraph.style.textDecoration = "none";
+		checkBox.parentNode.classList.remove ( "done" );
 
 	}
 
