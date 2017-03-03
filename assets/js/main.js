@@ -31,6 +31,8 @@ var createToDo = function () {
 	} else {
 		createItems();
 	}
+
+	updateItemCount()
 }
 
 var form = document.querySelector ( "form" );
@@ -80,16 +82,17 @@ var createItems = function ( e ) {
 	console.log( checkBox.checked );
 
 		if ( checkBox.checked ) {
-		paragraph.style.textDecoration = "line-through";
-		checkBox.parentNode.classList.add ( "done" );
+			paragraph.style.textDecoration = "line-through";
+			checkBox.parentNode.classList.add ( "done" );
 
 
 		} else if ( !checkBox.checked ) {
 
-		paragraph.style.textDecoration = "none";
-		checkBox.parentNode.classList.remove ( "done" );
+			paragraph.style.textDecoration = "none";
+			checkBox.parentNode.classList.remove ( "done" );
 		}
 
+		updateItemCount();
 
 	}
 
@@ -99,11 +102,15 @@ var createItems = function ( e ) {
 			paragraph.style.textDecoration = "line-through";
 			checkBox.parentNode.classList.add ( "done" );
 		}
+
+		updateItemCount();
 	}
 
 	var singleDelete = function () {
 
 		singleDeleteButton.parentNode.parentNode.removeChild ( singleDeleteButton.parentNode );
+
+		updateItemCount();
 
 	}
 
@@ -115,6 +122,8 @@ var createItems = function ( e ) {
 			allDoneItems[i];
 			allDoneItems[i].parentNode.removeChild ( allDoneItems[i] );
 		}
+
+		updateItemCount();
 
 	}
 
@@ -136,8 +145,6 @@ var createItems = function ( e ) {
 		// var allDoneItems = document.querySelectorAll ( ".done" );
 		// module.appendChild(allDoneItems);
 
-
-
 		hideCompletedButton.addEventListener ( "click", hideCompleted );
 	}
 
@@ -147,25 +154,9 @@ var createItems = function ( e ) {
 
 	}
 
-	var hideCompleted = function () {
 
-		var overlay = document.querySelector( ".overlay" );
-		var module = document.querySelector( ".module" );
-		
-		overlay.parentNode.removeChild( overlay );
-		module.parentNode.removeChild( module );
-	}
 
-	var updateItemCount = function () {
-		var doneCount = document.getElementsByClassName("done").length;
-		var allCount = document.getElementsByClassName("listItem").length;
-		var doneContainer = document.getElementById("done-count");
-		var allContainer = document.getElementById("all-count");
-
-		doneContainer.innerHTML = doneCount;
-		allContainer.innerHTML = allCount;
-
-}
+	updateItemCount();
 
 
 	listItem.addEventListener ( "click", deleteCheckedItems );
@@ -174,3 +165,25 @@ var createItems = function ( e ) {
 	deleteAllButton.addEventListener ( "click", deleteAllDone );
 	showCompletedButton.addEventListener ( "click", showCompleted );
 }
+
+var hideCompleted = function () {
+
+	var overlay = document.querySelector( ".overlay" );
+	var module = document.querySelector( ".module" );
+	
+	overlay.parentNode.removeChild( overlay );
+	module.parentNode.removeChild( module );
+}
+
+
+var updateItemCount = function () {
+	var doneCount = document.getElementsByClassName("done").length;
+	var allCount = document.getElementsByClassName("checkbox").length;
+	var doneContainer = document.getElementById("done-count");
+	var allContainer = document.getElementById("all-count");
+
+	doneContainer.innerHTML = doneCount;
+	allContainer.innerHTML = allCount;
+
+}
+
