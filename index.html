@@ -25,13 +25,17 @@
 		<form>
 			<input type="text" name="todo-input">
 			<button class="submit" type="submit">Submit</button>
-			<button class="delete-all" type="reset">Delete All</button>
+			<button class="delete-all" type="reset">Delete All Marked as Done</button>
+			<button class="mark-all-as-done" type="button">Mark All as Done</button>
+			<button class="show-completed" type="button">Show Completed</button>
 
 			<!-- <li> <input type="checkbox"></li> -->
 
 			<ol class="todo-list">	
 				<!-- new items inserted here --> 
 			</ol>
+
+			<p class="counter"><span id="done-count">0</span>/<span id="all-count">0</span> Done</p>
 
 		</form>
 

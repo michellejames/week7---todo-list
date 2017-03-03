@@ -46,7 +46,9 @@ form.addEventListener ( "submit", function ( e ){
 var createItems = function ( e ) {
 
 	var orderedList = document.querySelector ( ".todo-list" );
+	var markAllButton = document.querySelector ( ".mark-all-as-done");
 	var deleteAllButton = document.querySelector ( ".delete-all" );
+	var showCompletedButton = document.querySelector ( ".show-completed");
 
 	listItem = document.createElement ( "li" );
 	listItem.classList.add ( "list-item" );
@@ -69,6 +71,10 @@ var createItems = function ( e ) {
 	listItem.appendChild ( paragraph );
 	listItem.appendChild ( singleDeleteButton );
 
+	var JSONData = JSON.stringify(listItem);
+	localStorage.setItem(listItem.form, JSONData);
+	console.log(localStorage);
+
 	var deleteCheckedItems = function () {
 
 	console.log( checkBox.checked );
@@ -78,29 +84,93 @@ var createItems = function ( e ) {
 		checkBox.parentNode.classList.add ( "done" );
 
 
-		} else if ( !checkBox.checked )
+		} else if ( !checkBox.checked ) {
+
 		paragraph.style.textDecoration = "none";
 		checkBox.parentNode.classList.remove ( "done" );
+		}
 
+
+	}
+
+	var markAllAsDone = function () {
+
+		if (markAllButton) {
+			paragraph.style.textDecoration = "line-through";
+			checkBox.parentNode.classList.add ( "done" );
+		}
 	}
 
 	var singleDelete = function () {
 
 		singleDeleteButton.parentNode.parentNode.removeChild ( singleDeleteButton.parentNode );
+
 	}
 
-	var deleteAll = function () {
+	var deleteAllDone = function () {
 
-		var allItems = document.querySelectorAll ( ".list-item" );
+		var allDoneItems = document.querySelectorAll ( ".done" );
 
-		for ( var i = allItems.length - 1; i >= 0; i-- ) {
-			allItems[i];
-			allItems[i].parentNode.removeChild ( allItems[i] );
+		for ( var i = allDoneItems.length - 1; i >= 0; i-- ) {
+			allDoneItems[i];
+			allDoneItems[i].parentNode.removeChild ( allDoneItems[i] );
 		}
+
 	}
 
-	listItem.addEventListener ( "click", deleteCheckedItems );
-	singleDeleteButton.addEventListener ( "click", singleDelete );
-	deleteAllButton.addEventListener ( "click", deleteAll );
+	var createModule = function () {
+
+		var overlay = document.createElement ( "div" );
+		overlay.classList.add( "overlay" );
+		document.body.appendChild ( overlay );
+
+		var module = document.createElement ( "div" );
+		module.classList.add( "module" );
+		document.body.appendChild ( module );
+
+		var hideCompletedButton = document.createElement ( "button" );
+		hideCompletedButton.classList.add ( "hide-completed" );
+		module.appendChild ( hideCompletedButton );
+		hideCompletedButton.innerHTML = "Hide Completed";
+
+		// var allDoneItems = document.querySelectorAll ( ".done" );
+		// module.appendChild(allDoneItems);
+
+
+
+		hideCompletedButton.addEventListener ( "click", hideCompleted );
+	}
+
+	var showCompleted = function () {
+
+		createModule();
+
+	}
+
+	var hideCompleted = function () {
+
+		var overlay = document.querySelector( ".overlay" );
+		var module = document.querySelector( ".module" );
+		
+		overlay.parentNode.removeChild( overlay );
+		module.parentNode.removeChild( module );
+	}
+
+	var updateItemCount = function () {
+		var doneCount = document.getElementsByClassName("done").length;
+		var allCount = document.getElementsByClassName("listItem").length;
+		var doneContainer = document.getElementById("done-count");
+		var allContainer = document.getElementById("all-count");
+
+		doneContainer.innerHTML = doneCount;
+		allContainer.innerHTML = allCount;
+
 }
 
+
+	listItem.addEventListener ( "click", deleteCheckedItems );
+	markAllButton.addEventListener ( "click", markAllAsDone );
+	singleDeleteButton.addEventListener ( "click", singleDelete );
+	deleteAllButton.addEventListener ( "click", deleteAllDone );
+	showCompletedButton.addEventListener ( "click", showCompleted );
+}
