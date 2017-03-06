@@ -31,7 +31,7 @@ var createToDo = function () {
 	} else {
 		createItems();
 	}
-
+	console.log(JSON.parse(localStorage.listItemArray));
 	updateItemCount()
 }
 
@@ -50,7 +50,7 @@ var createItems = function ( e ) {
 	var orderedList = document.querySelector ( ".todo-list" );
 	var markAllButton = document.querySelector ( ".mark-all-as-done");
 	var deleteAllButton = document.querySelector ( ".delete-all" );
-	var showHideButton = document.querySelector ( ".how-hide-completed");
+	var showHideButton = document.querySelector ( ".show-hide-completed");
 
 	listItem = document.createElement ( "li" );
 	listItem.classList.add ( "list-item" );
@@ -69,13 +69,21 @@ var createItems = function ( e ) {
 	singleDeleteButton.innerHTML = "X";
 
 	orderedList.appendChild ( listItem );
+	console.log(orderedList.children);
 	listItem.appendChild ( checkBox );
 	listItem.appendChild ( paragraph );
 	listItem.appendChild ( singleDeleteButton );
 
-	var JSONData = JSON.stringify(orderedList);
-	localStorage.setItem(orderedList, JSONData);
+	storageArray = [];
+	for (var i = 0; i < orderedList.children.length; i++) {
+		storageArray.push(orderedList.children[i].innerHTML);
+	}
+
+	var JSONData = JSON.stringify(storageArray);
+	console.log(JSONData);
+	localStorage.setItem("storageArray", JSONData);
 	console.log(localStorage);
+
 
 	var deleteCheckedItems = function () {
 
@@ -101,6 +109,7 @@ var createItems = function ( e ) {
 		if (markAllButton) {
 			paragraph.style.textDecoration = "line-through";
 			checkBox.parentNode.classList.add ( "done" );
+			checkBox.checked = true;
 		}
 
 		updateItemCount();
@@ -127,16 +136,17 @@ var createItems = function ( e ) {
 
 	}
 
-	var showHideCompleted = function () {
+	var hideCompleted = function () {
 
 		var allDoneItems = document.querySelectorAll ( ".done" );
 
-		if (allDoneItems) {
-			listItem.style.display = "none";
+		if (allDoneItems && checkBox.checked) {
+			checkBox.parentNode.style.display = "none";
+		} else {
+			checkBox.parentNode.style.display = "contents";
 		}
 
 
-		showHideButton.addEventListener ( "click", showHideCompleted );
 
 
 		updateItemCount();
@@ -149,6 +159,8 @@ var createItems = function ( e ) {
 	markAllButton.addEventListener ( "click", markAllAsDone );
 	singleDeleteButton.addEventListener ( "click", singleDelete );
 	deleteAllButton.addEventListener ( "click", deleteAllDone );
+	showHideButton.addEventListener ( "click", hideCompleted );
+
 }
 
 
@@ -162,4 +174,6 @@ var updateItemCount = function () {
 	allContainer.innerHTML = allCount;
 
 }
+
+window.onload = console.log(JSON.parse(localStorage.storageArray));
 
