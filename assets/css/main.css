@@ -106,8 +106,7 @@ input {
 
 .delete-all,
 .mark-all-as-done,
-.show-completed,
-.hide-completed {
+.show-hide-completed {
   margin-top: 2%;
   display: inline;
   font-size: 1em;
@@ -136,6 +135,11 @@ input {
     position: absolute;
 }
 
+.counter {
+  margin-top: 5%;
+  font-family: 'Pacifico', cursive;
+
+}
 
 
 

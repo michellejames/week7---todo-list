@@ -50,7 +50,7 @@ var createItems = function ( e ) {
 	var orderedList = document.querySelector ( ".todo-list" );
 	var markAllButton = document.querySelector ( ".mark-all-as-done");
 	var deleteAllButton = document.querySelector ( ".delete-all" );
-	var showCompletedButton = document.querySelector ( ".show-completed");
+	var showHideButton = document.querySelector ( ".how-hide-completed");
 
 	listItem = document.createElement ( "li" );
 	listItem.classList.add ( "list-item" );
@@ -73,8 +73,8 @@ var createItems = function ( e ) {
 	listItem.appendChild ( paragraph );
 	listItem.appendChild ( singleDeleteButton );
 
-	var JSONData = JSON.stringify(listItem);
-	localStorage.setItem(listItem.form, JSONData);
+	var JSONData = JSON.stringify(orderedList);
+	localStorage.setItem(orderedList, JSONData);
 	console.log(localStorage);
 
 	var deleteCheckedItems = function () {
@@ -127,34 +127,20 @@ var createItems = function ( e ) {
 
 	}
 
-	var createModule = function () {
+	var showHideCompleted = function () {
 
-		var overlay = document.createElement ( "div" );
-		overlay.classList.add( "overlay" );
-		document.body.appendChild ( overlay );
+		var allDoneItems = document.querySelectorAll ( ".done" );
 
-		var module = document.createElement ( "div" );
-		module.classList.add( "module" );
-		document.body.appendChild ( module );
+		if (allDoneItems) {
+			listItem.style.display = "none";
+		}
 
-		var hideCompletedButton = document.createElement ( "button" );
-		hideCompletedButton.classList.add ( "hide-completed" );
-		module.appendChild ( hideCompletedButton );
-		hideCompletedButton.innerHTML = "Hide Completed";
 
-		// var allDoneItems = document.querySelectorAll ( ".done" );
-		// module.appendChild(allDoneItems);
+		showHideButton.addEventListener ( "click", showHideCompleted );
 
-		hideCompletedButton.addEventListener ( "click", hideCompleted );
+
+		updateItemCount();
 	}
-
-	var showCompleted = function () {
-
-		createModule();
-
-	}
-
-
 
 	updateItemCount();
 
@@ -163,16 +149,6 @@ var createItems = function ( e ) {
 	markAllButton.addEventListener ( "click", markAllAsDone );
 	singleDeleteButton.addEventListener ( "click", singleDelete );
 	deleteAllButton.addEventListener ( "click", deleteAllDone );
-	showCompletedButton.addEventListener ( "click", showCompleted );
-}
-
-var hideCompleted = function () {
-
-	var overlay = document.querySelector( ".overlay" );
-	var module = document.querySelector( ".module" );
-	
-	overlay.parentNode.removeChild( overlay );
-	module.parentNode.removeChild( module );
 }
 
 
