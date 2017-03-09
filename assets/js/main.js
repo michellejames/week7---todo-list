@@ -22,30 +22,20 @@ console.log("Hello World from main.js!");
 var itemText;
 var listItem;
 
-var createToDo = function () {
+var createToDo = function (itemText, doneState) {
 	//get info from the form
-	itemText = document.querySelector ( "input[name=todo-input]" );			//use square brackets to grab whole css selectors
+				//use square brackets to grab whole css selectors
 
 	if ( itemText.value  === "" ) {
 		alert ("Please input a list item.");
 	} else {
-		createItems();
+		createItems(itemText, doneState);
 	}
-	console.log(JSON.parse(localStorage.listItemArray));
-	updateItemCount()
+	console.log(JSON.parse(localStorage.storageArray));
+	updateItemCount();
 }
 
-var form = document.querySelector ( "form" );
-
-form.addEventListener ( "submit", function ( e ){
-	e.preventDefault();
-	createToDo();
-
-	form.reset();
-
-});
-
-var createItems = function ( e ) {
+var createItems = function ( itemText, doneState ) {
 
 	var orderedList = document.querySelector ( ".todo-list" );
 	var markAllButton = document.querySelector ( ".mark-all-as-done");
@@ -61,7 +51,8 @@ var createItems = function ( e ) {
 	var paragraph = document.createElement ( "p" );
 	paragraph.classList.add ( "checkbox" );
 
-	paragraph.innerHTML = itemText.value;
+	console.log(itemText);
+	paragraph.innerHTML = itemText;
 
 	var singleDeleteButton = document.createElement ( "button" );
 	singleDeleteButton.setAttribute ( "type", "button" );
@@ -74,9 +65,16 @@ var createItems = function ( e ) {
 	listItem.appendChild ( paragraph );
 	listItem.appendChild ( singleDeleteButton );
 
-	storageArray = [];
-	for (var i = 0; i < orderedList.children.length; i++) {
-		storageArray.push(orderedList.children[i].innerHTML);
+	var todoItems = document.querySelectorAll(".list-item");
+	console.log(todoItems);
+
+	var storageArray = [];
+	for (var i = 0; i < todoItems.length; i++) {
+		console.dir(todoItems[i]);
+		storageArray.push ( {
+			text: todoItems[i].children[1].innerHTML,
+			done: todoItems[i].classList.contains("done")
+		});
 	}
 
 	var JSONData = JSON.stringify(storageArray);
@@ -175,5 +173,47 @@ var updateItemCount = function () {
 
 }
 
-window.onload = console.log(JSON.parse(localStorage.storageArray));
+var onLoad = function () {
+	var form = document.querySelector ( "form" );
 
+	form.addEventListener ( "submit", function ( e ){
+		e.preventDefault();
+		itemText = document.querySelector( "input[name=todo-input]" ).value;
+		console.log("itemtext = " + itemText.value);
+		createToDo(itemText, false);
+
+		form.reset();
+
+
+	});
+	// console.log(JSON.parse(localStorage.storageArray));
+	loadStorage();
+}
+
+
+var loadStorage = function () {
+	//get localStorage
+	//turn it back into an Object
+	//loop through the object
+	//abend those list items to the OL
+
+	var todoList = document.getElementsByClassName("todo-list")[0];
+	var storageItem = localStorage.getItem("storageArray");
+	console.log(storageItem);
+	var storageArray = JSON.parse(storageItem);
+	console.log(storageArray);
+
+	if (storageArray) {
+		console.log("running if statement");
+		for (var i= 0; i < storageArray.length; i++) {
+			console.log("runing for loop");
+			console.log(storageArray[i].text, storageArray[i].done);
+			createToDo(storageArray[i].text, storageArray[i].done);
+		}
+	}
+}
+
+
+
+
+window.onload = onLoad();

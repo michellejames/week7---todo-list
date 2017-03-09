@@ -18,7 +18,7 @@ TABLE OF CONTENTS:
 
 body {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: #ccc;
   background-image: url(../img/nature.jpg);
   background-repeat: no-repeat;
