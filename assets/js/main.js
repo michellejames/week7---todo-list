@@ -100,6 +100,7 @@ var createItems = function ( itemText, doneState ) {
 
 		updateItemCount();
 
+
 	}
 
 	var markAllAsDone = function () {
@@ -122,7 +123,7 @@ var createItems = function ( itemText, doneState ) {
 	}
 
 	var deleteAllDone = function () {
-
+		
 		var allDoneItems = document.querySelectorAll ( ".done" );
 
 		for ( var i = allDoneItems.length - 1; i >= 0; i-- ) {
